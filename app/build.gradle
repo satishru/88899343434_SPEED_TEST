@@ -21,10 +21,44 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    flavorDimensions "version"
+    productFlavors {
+        development {
+            dimension "version"
+            resValue "string", "app_name", "@string/app_name_dev"
+            manifestPlaceholders = [
+                    appLabel: "@string/app_name_dev",
+                    appIcon: "@mipmap/ic_launcher",
+                    appRoundIcon: "@mipmap/ic_launcher_round"
+            ]
+        }
+
+        production {
+            dimension "version"
+            resValue "string", "app_name", "@string/app_name_prod"
+            manifestPlaceholders = [
+                    appLabel: "@string/app_name_prod",
+                    appIcon: "@mipmap/ic_launcher",
+                    appRoundIcon: "@mipmap/ic_launcher_round"
+            ]
+        }
     }
 }
 
